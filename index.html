@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yol Yardım A.Ş. — 7/24 Çekici &amp; Oto Kurtarma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:        #0A0B0D;
+    --panel:     #12141A;
+    --panel-2:   #181B22;
+    --amber:     #F2A93B;
+    --amber-dim: rgba(242,169,59,0.14);
+    --text:      #F3F1EC;
+    --text-dim:  #9B9EA6;
+    --line:      rgba(255,255,255,0.09);
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Outfit', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:var(--font-body);
+    font-weight:400;
+    font-size:1rem;
+    letter-spacing:0.01em;
+    line-height:1.55;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  .grain{
+    position:fixed; inset:0; z-index:6; pointer-events:none;
+    opacity:0.04; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---- NAV ---- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:20;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:26px 6vw;
+    mix-blend-mode:difference;
+  }
+  .brand{
+    font-family:var(--font-display); font-weight:500;
+    font-size:1.2rem; letter-spacing:0.04em;
+  }
+  .brand em{ color:var(--amber); font-style:normal; }
+  .nav-right{
+    display:flex; align-items:center; gap:26px;
+    font-size:0.84rem; font-weight:450; color:var(--text-dim);
+  }
+  .nav-cta{
+    padding:10px 22px; border:1px solid var(--line); border-radius:999px;
+    color:var(--text); text-decoration:none;
+    font-size:0.82rem; font-weight:500; letter-spacing:0.03em;
+    transition:border-color .3s, background .3s;
+  }
+  .nav-cta:hover{ border-color:var(--amber); background:var(--amber-dim); }
+
+  .sound-toggle{
+    position:fixed; right:6vw; bottom:28px; z-index:30;
+    display:inline-flex; align-items:center; gap:10px;
+    padding:12px 18px; border-radius:999px;
+    border:1px solid var(--line); background:rgba(10,11,13,0.72);
+    backdrop-filter:blur(10px); color:var(--text);
+    font-family:var(--font-body); font-size:0.78rem; font-weight:500;
+    letter-spacing:0.06em; text-transform:uppercase; cursor:pointer;
+    transition:border-color .25s, background .25s, opacity .4s;
+  }
+  .sound-toggle:hover{ border-color:var(--amber); }
+  .sound-toggle .eq{
+    display:flex; align-items:flex-end; gap:2px; height:12px;
+  }
+  .sound-toggle .eq i{
+    width:2px; background:var(--amber); display:block;
+    animation:eq 1s ease-in-out infinite;
+  }
+  .sound-toggle .eq i:nth-child(1){ height:4px; animation-delay:0s; }
+  .sound-toggle .eq i:nth-child(2){ height:10px; animation-delay:.15s; }
+  .sound-toggle .eq i:nth-child(3){ height:6px; animation-delay:.3s; }
+  .sound-toggle.is-muted .eq i{ animation:none; height:3px; opacity:.45; }
+  @keyframes eq{
+    0%,100%{ transform:scaleY(.45); }
+    50%{ transform:scaleY(1); }
+  }
+
+  /* ---- HERO ---- */
+  .hero{
+    position:relative; height:100vh; min-height:640px;
+    display:flex; align-items:flex-end; overflow:hidden;
+  }
+  .hero video{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center; z-index:0;
+  }
+  .hero.video-failed{
+    background-color:var(--bg);
+    background-image:url("assets/poster.jpg");
+    background-size:cover; background-position:center;
+  }
+  .hero.video-failed video{ display:none; }
+  .hero::after{
+    content:""; position:absolute; inset:0; z-index:1;
+    background:
+      linear-gradient(180deg, rgba(10,11,13,0.22) 0%, rgba(10,11,13,0.16) 42%, rgba(10,11,13,0.9) 94%),
+      linear-gradient(90deg, rgba(10,11,13,0.4) 0%, transparent 42%, transparent 58%, rgba(10,11,13,0.4) 100%);
+  }
+  .hero-content{
+    position:relative; z-index:2;
+    padding:0 6vw 9vh; width:100%;
+  }
+  .eyebrow{
+    display:flex; align-items:center; gap:10px;
+    font-size:0.76rem; font-weight:500; letter-spacing:0.18em;
+    color:var(--amber); text-transform:uppercase; margin-bottom:22px;
+    opacity:0; animation:fadeUp 1s ease forwards 0.3s;
+  }
+  .eyebrow .dot{
+    width:6px; height:6px; border-radius:50%; background:var(--amber);
+    animation:pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  h1{
+    font-family:var(--font-display); font-weight:300;
+    font-size:clamp(2.6rem, 6.6vw, 5.6rem);
+    line-height:1.02; letter-spacing:-0.02em;
+    max-width:15ch;
+    opacity:0; animation:fadeUp 1.1s ease forwards 0.5s;
+  }
+  h1 em{ font-style:italic; font-weight:500; color:var(--amber); }
+
+  .hero-sub{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-top:40px; gap:40px; flex-wrap:wrap;
+    opacity:0; animation:fadeUp 1s ease forwards 0.8s;
+  }
+  .hero-sub p{
+    color:var(--text-dim); max-width:42ch;
+    line-height:1.7; font-size:1.02rem; font-weight:350;
+  }
+  .cta-primary{
+    display:inline-flex; align-items:center; justify-content:center; gap:14px;
+    white-space:nowrap; padding:16px 30px;
+    background:var(--amber); color:#181205;
+    border-radius:999px; text-decoration:none;
+    font-weight:600; font-size:0.92rem; letter-spacing:0.02em;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .cta-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 30px rgba(242,169,59,0.22);
+  }
+
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(22px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .scroll-cue{
+    position:absolute; right:6vw; bottom:32px; z-index:2;
+    font-size:0.68rem; font-weight:500; color:var(--text-dim);
+    letter-spacing:0.16em;
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    opacity:0; animation:fadeUp 1s ease forwards 1.1s;
+  }
+  .scroll-cue .line{ width:1px; height:44px; background:var(--line); position:relative; overflow:hidden; }
+  .scroll-cue .line::after{
+    content:""; position:absolute; top:-44px; left:0; width:100%; height:44px; background:var(--amber);
+    animation:travel 2.3s ease-in-out infinite;
+  }
+  @keyframes travel{ 0%{top:-44px;} 100%{top:44px;} }
+
+  /* ---- SHARED ---- */
+  .reveal{
+    opacity:0; transform:translateY(28px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .reveal.is-visible{ opacity:1; transform:none; }
+  .reveal-delay-1{ transition-delay:.12s; }
+  .reveal-delay-2{ transition-delay:.24s; }
+  .reveal-delay-3{ transition-delay:.36s; }
+
+  .tag{
+    color:var(--amber); font-size:0.76rem; font-weight:500;
+    letter-spacing:0.18em; text-transform:uppercase; margin-bottom:16px;
+  }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-bottom:60px; flex-wrap:wrap; gap:24px;
+  }
+  .section-head h2{
+    font-family:var(--font-display); font-weight:300;
+    font-size:clamp(2rem,4vw,3.25rem);
+    max-width:15ch; line-height:1.08; letter-spacing:-0.02em;
+  }
+  .section-head p{
+    color:var(--text-dim); max-width:38ch;
+    line-height:1.7; font-size:1rem; font-weight:350;
+  }
+
+  /* ---- STATS ---- */
+  .stats{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .stats .item{ padding:36px 6vw; border-right:1px solid var(--line); }
+  .stats .item:last-child{ border-right:none; }
+  .stats .num{
+    font-family:var(--font-display); font-size:2.35rem;
+    color:var(--amber); font-weight:500; letter-spacing:-0.02em;
+  }
+  .stats .label{
+    color:var(--text-dim); font-size:0.84rem;
+    font-weight:400; margin-top:8px; letter-spacing:0.02em;
+  }
+
+  /* ---- SERVICES ---- */
+  .services{ padding:14vh 6vw; }
+  .service-grid{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:1px; background:var(--line);
+  }
+  .service-card{
+    background:var(--bg); padding:44px 34px;
+    transition:background .35s ease;
+  }
+  .service-card:hover{ background:var(--panel); }
+  .service-card .idx{
+    color:var(--text-dim); font-size:0.78rem;
+    font-weight:500; letter-spacing:0.08em; margin-bottom:26px;
+  }
+  .service-card h3{
+    font-family:var(--font-display); font-weight:500;
+    font-size:1.38rem; margin-bottom:14px; letter-spacing:-0.01em;
+  }
+  .service-card p{
+    color:var(--text-dim); font-size:0.95rem;
+    line-height:1.65; font-weight:350;
+  }
+
+  /* ---- WHY ---- */
+  .why{
+    padding:14vh 6vw; border-top:1px solid var(--line);
+    position:relative; overflow:hidden;
+  }
+  .why::before{
+    content:""; position:absolute; inset:auto -10% -30% auto;
+    width:55vw; height:55vw; border-radius:50%;
+    background:radial-gradient(circle, rgba(242,169,59,0.08), transparent 68%);
+    pointer-events:none;
+  }
+  .why-grid{
+    display:grid; grid-template-columns:1.1fr 1fr; gap:8vw;
+    align-items:start; position:relative;
+  }
+  .why-lead{
+    font-family:var(--font-display); font-weight:300;
+    font-size:clamp(1.7rem, 3vw, 2.5rem);
+    line-height:1.2; letter-spacing:-0.02em; max-width:18ch;
+  }
+  .why-lead em{ font-style:italic; color:var(--amber); font-weight:500; }
+  .why-copy p{
+    color:var(--text-dim); font-size:1.02rem;
+    line-height:1.75; font-weight:350; margin-bottom:18px;
+  }
+  .why-list{ margin-top:36px; display:flex; flex-direction:column; }
+  .why-item{
+    display:grid; grid-template-columns:72px 1fr; gap:18px;
+    padding:22px 0; border-top:1px solid var(--line);
+  }
+  .why-item:last-child{ border-bottom:1px solid var(--line); }
+  .why-item .n{
+    font-family:var(--font-display); color:var(--amber);
+    font-size:1.15rem; font-weight:500;
+  }
+  .why-item h3{
+    font-family:var(--font-display); font-size:1.15rem;
+    font-weight:500; margin-bottom:6px;
+  }
+  .why-item p{ color:var(--text-dim); font-size:0.94rem; line-height:1.6; font-weight:350; }
+
+  /* ---- COVERAGE ---- */
+  .coverage{
+    padding:14vh 6vw; border-top:1px solid var(--line);
+    background:
+      linear-gradient(180deg, rgba(18,20,26,0.55), rgba(10,11,13,0) 40%),
+      var(--bg);
+  }
+  .coverage-map{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--line); margin-top:50px;
+  }
+  .zone{
+    background:var(--panel); padding:34px 28px;
+    min-height:160px; display:flex; flex-direction:column; justify-content:space-between;
+    transition:background .3s ease;
+  }
+  .zone:hover{ background:var(--panel-2); }
+  .zone .zone-tag{
+    font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--amber); font-weight:500;
+  }
+  .zone h3{
+    font-family:var(--font-display); font-weight:500;
+    font-size:1.35rem; margin-top:28px; letter-spacing:-0.01em;
+  }
+  .zone p{ color:var(--text-dim); font-size:0.88rem; margin-top:8px; font-weight:350; }
+
+  /* ---- PROCESS ---- */
+  .process{ padding:14vh 6vw; border-top:1px solid var(--line); }
+  .steps{ display:flex; flex-direction:column; margin-top:50px; }
+  .step{
+    display:grid; grid-template-columns:80px 1fr 1.1fr; gap:30px; align-items:center;
+    padding:34px 0; border-top:1px solid var(--line);
+  }
+  .step:last-child{ border-bottom:1px solid var(--line); }
+  .step .num{ font-family:var(--font-display); color:var(--amber); font-size:1.45rem; font-weight:500; }
+  .step h4{ font-family:var(--font-display); font-weight:500; font-size:1.25rem; letter-spacing:-0.01em; }
+  .step p{ color:var(--text-dim); font-size:0.96rem; line-height:1.65; font-weight:350; }
+
+  /* ---- TIPS ---- */
+  .tips{
+    padding:14vh 6vw; border-top:1px solid var(--line);
+    position:relative;
+  }
+  .tips-intro{
+    max-width:52ch; color:var(--text-dim);
+    font-size:1.05rem; line-height:1.75; font-weight:350; margin-bottom:48px;
+  }
+  .tip-rows{ display:flex; flex-direction:column; gap:0; }
+  .tip-row{
+    display:grid; grid-template-columns:120px 1fr; gap:40px;
+    padding:32px 0; border-top:1px solid var(--line);
+    align-items:baseline;
+  }
+  .tip-row:last-child{ border-bottom:1px solid var(--line); }
+  .tip-row .label{
+    font-size:0.74rem; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--amber); font-weight:500;
+  }
+  .tip-row h3{
+    font-family:var(--font-display); font-size:1.35rem;
+    font-weight:500; margin-bottom:10px; letter-spacing:-0.01em;
+  }
+  .tip-row p{ color:var(--text-dim); font-size:0.98rem; line-height:1.7; font-weight:350; max-width:62ch; }
+
+  /* ---- FAQ ---- */
+  .faq{ padding:14vh 6vw; border-top:1px solid var(--line); }
+  .faq-list{ margin-top:40px; max-width:860px; }
+  .faq details{
+    border-top:1px solid var(--line);
+    padding:0;
+  }
+  .faq details:last-child{ border-bottom:1px solid var(--line); }
+  .faq summary{
+    list-style:none; cursor:pointer;
+    display:flex; justify-content:space-between; align-items:center; gap:24px;
+    padding:26px 0;
+    font-family:var(--font-display); font-size:1.18rem; font-weight:500;
+    letter-spacing:-0.01em;
+  }
+  .faq summary::-webkit-details-marker{ display:none; }
+  .faq summary::after{
+    content:"+"; color:var(--amber); font-family:var(--font-body);
+    font-size:1.4rem; font-weight:300; transition:transform .25s ease;
+  }
+  .faq details[open] summary::after{ content:"–"; }
+  .faq details p{
+    color:var(--text-dim); font-size:0.98rem; line-height:1.7;
+    font-weight:350; padding:0 0 26px; max-width:62ch;
+  }
+
+  /* ---- QUOTE ---- */
+  .quote-band{
+    padding:16vh 6vw; border-top:1px solid var(--line);
+    text-align:center;
+    background:linear-gradient(180deg, rgba(242,169,59,0.05), transparent 70%);
+  }
+  .quote-band blockquote{
+    font-family:var(--font-display); font-weight:300; font-style:italic;
+    font-size:clamp(1.6rem, 3.4vw, 2.8rem);
+    line-height:1.25; letter-spacing:-0.02em; max-width:18ch; margin:0 auto;
+  }
+  .quote-band cite{
+    display:block; margin-top:28px; font-style:normal;
+    color:var(--text-dim); font-size:0.86rem; letter-spacing:0.08em;
+    text-transform:uppercase; font-weight:500;
+  }
+
+  /* ---- CLOSING ---- */
+  .closing{
+    padding:16vh 6vw; text-align:center; border-top:1px solid var(--line);
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .closing h2{
+    font-family:var(--font-display); font-weight:300;
+    font-size:clamp(2.2rem,5vw,4rem);
+    max-width:16ch; line-height:1.06; letter-spacing:-0.02em;
+  }
+  .closing h2 em{ font-style:italic; color:var(--amber); font-weight:500; }
+  .closing p{
+    color:var(--text-dim); margin-top:22px; max-width:46ch;
+    font-size:1.02rem; line-height:1.7; font-weight:350;
+  }
+  .closing .cta-primary{ margin-top:36px; }
+  .closing-note{
+    margin-top:18px; color:var(--text-dim);
+    font-size:0.82rem; letter-spacing:0.04em;
+  }
+
+  footer{
+    padding:28px 6vw; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    color:var(--text-dim); font-size:0.82rem; border-top:1px solid var(--line);
+    font-weight:400;
+  }
+
+  @media (max-width:980px){
+    .why-grid{ grid-template-columns:1fr; gap:40px; }
+    .coverage-map{ grid-template-columns:repeat(2,1fr); }
+    .tip-row{ grid-template-columns:1fr; gap:10px; }
+    .step{ grid-template-columns:70px 1fr; }
+    .step p{ grid-column:2; }
+  }
+
+  @media (max-width:820px){
+    nav{
+      padding:18px 5vw;
+      padding-top:max(18px, env(safe-area-inset-top));
+    }
+    .nav-right{ gap:12px; }
+    .nav-right span{ display:none; }
+    .nav-cta{
+      padding:11px 16px; font-size:0.78rem; min-height:44px;
+      display:inline-flex; align-items:center;
+    }
+    .sound-toggle{
+      right:5vw; bottom:max(18px, env(safe-area-inset-bottom));
+      padding:11px 14px; font-size:0.7rem;
+    }
+    .hero{ min-height:100svh; height:100svh; }
+    .hero-content{
+      padding:0 5vw max(7vh, calc(28px + env(safe-area-inset-bottom)));
+    }
+    .eyebrow{ font-size:0.7rem; letter-spacing:0.12em; margin-bottom:16px; }
+    h1{ font-size:clamp(2.15rem, 9.2vw, 3.1rem); max-width:12ch; }
+    .hero-sub{ flex-direction:column; align-items:stretch; gap:22px; margin-top:28px; }
+    .hero-sub p{ max-width:none; font-size:0.95rem; }
+    .cta-primary{ width:100%; min-height:48px; padding:15px 22px; font-size:0.9rem; }
+    .scroll-cue{ display:none; }
+
+    .stats{ grid-template-columns:repeat(2,1fr); }
+    .stats .item{ padding:22px 5vw; }
+    .stats .item:nth-child(2),
+    .stats .item:nth-child(4){ border-right:none; }
+    .stats .item:nth-child(1),
+    .stats .item:nth-child(2){ border-bottom:1px solid var(--line); }
+    .stats .num{ font-size:1.8rem; }
+    .stats .label{ font-size:0.76rem; }
+
+    .services, .process, .why, .coverage, .tips, .faq{ padding:10vh 5vw; }
+    .section-head{ margin-bottom:36px; align-items:flex-start; flex-direction:column; }
+    .section-head h2{ max-width:14ch; }
+    .section-head p{ max-width:none; font-size:0.95rem; }
+    .service-grid{ grid-template-columns:1fr; }
+    .service-card{ padding:28px 22px; }
+    .service-card h3{ font-size:1.22rem; }
+    .why-item{ grid-template-columns:56px 1fr; gap:12px; }
+    .coverage-map{ grid-template-columns:1fr; }
+    .step{ grid-template-columns:1fr; gap:8px; padding:24px 0; align-items:start; }
+    .step p{ grid-column:auto; }
+    .quote-band{ padding:12vh 5vw; }
+    .closing{
+      padding:12vh 5vw;
+      padding-bottom:max(12vh, calc(48px + env(safe-area-inset-bottom)));
+    }
+    .closing h2{ font-size:clamp(1.9rem, 8vw, 2.8rem); }
+    .closing .cta-primary{ width:100%; max-width:360px; }
+    footer{
+      flex-direction:column; gap:8px; align-items:flex-start;
+      padding:20px 5vw;
+      padding-bottom:max(20px, env(safe-area-inset-bottom));
+    }
+  }
+
+  @media (max-width:480px){
+    .brand{ font-size:1.05rem; }
+    .stats .item{ padding:18px 4.5vw; }
+    .service-card{ padding:24px 18px; }
+    .zone{ padding:26px 22px; min-height:140px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .eyebrow, h1, .hero-sub, .scroll-cue{ animation:none; opacity:1; }
+    .eyebrow .dot, .scroll-cue .line::after, .sound-toggle .eq i{ animation:none; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<audio id="site-audio" src="assets/ambient.mp3" loop preload="auto"></audio>
+
+<button type="button" class="sound-toggle is-muted" id="sound-toggle" aria-pressed="false" aria-label="Sesi aç">
+  <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+  <span class="label">Ses Kapalı</span>
+</button>
+
+<nav>
+  <div class="brand">YOL<em>YARDIM</em></div>
+  <div class="nav-right">
+    <span>7/24 Hizmet</span>
+    <span>İstanbul &amp; Çevresi</span>
+    <a class="nav-cta" href="tel:+900000000000">0850 000 00 00</a>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <video id="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/poster.jpg">
+    <source src="assets/hero.mp4" type="video/mp4">
+    <source src="assets/hero.webm" type="video/webm">
+  </video>
+
+  <div class="hero-content">
+    <div class="eyebrow"><span class="dot"></span> Şu An Yolda 12 Ekip</div>
+    <h1>Yolda Kaldığın<br>An, <em>Biz</em> Yoldayız.</h1>
+    <div class="hero-sub">
+      <p>İstanbul genelinde ortalama 22 dakikada yerinde müdahale. Sigorta anlaşmalı, sabit fiyat garantili, sertifikalı ekip.</p>
+      <a class="cta-primary" href="#services">Hizmetleri Gör →</a>
+    </div>
+  </div>
+
+  <div class="scroll-cue">KAYDIR<div class="line"></div></div>
+</section>
+
+<div class="stats">
+  <div class="item reveal"><div class="num">22 dk</div><div class="label">Ortalama varış süresi</div></div>
+  <div class="item reveal reveal-delay-1"><div class="num">7/24</div><div class="label">Kesintisiz hizmet</div></div>
+  <div class="item reveal reveal-delay-2"><div class="num">40+</div><div class="label">Aktif çekici ekibi</div></div>
+  <div class="item reveal reveal-delay-3"><div class="num">98%</div><div class="label">Memnuniyet oranı</div></div>
+</div>
+
+<section class="services" id="services">
+  <div class="section-head reveal">
+    <div>
+      <div class="tag">Hizmetlerimiz</div>
+      <h2>Aracın Neredeyse, Çözüm Oradan Başlar</h2>
+    </div>
+    <p>Basit lastik değişiminden ağır vasıta taşımacılığına kadar tek çağrıyla tüm yol yardım ihtiyaçların karşılanır.</p>
+  </div>
+
+  <div class="service-grid">
+    <div class="service-card reveal">
+      <div class="idx">01</div>
+      <h3>Çekici &amp; Taşıma</h3>
+      <p>Sedan'dan SUV'a, hidrolik platform sistemiyle aracına zarar vermeden güvenli taşıma.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="idx">02</div>
+      <h3>Akü Takviyesi</h3>
+      <p>Aracın çalışmıyor mu? Yerinde akü takviyesi ile dakikalar içinde yola devam et.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="idx">03</div>
+      <h3>Lastik Değişimi</h3>
+      <p>Patlak veya inik lastik için yol kenarında hızlı ve güvenli müdahale.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="idx">04</div>
+      <h3>Yakıt İkmali</h3>
+      <p>Yakıtın bitti mi? En yakın ekip sana yeterli yakıtı yerinde ulaştırır.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="idx">05</div>
+      <h3>Kilit &amp; Kapı Açma</h3>
+      <p>Anahtarını araçta mı unuttun? Aracına zarar vermeden profesyonel çözüm.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="idx">06</div>
+      <h3>Ağır Vasıta Kurtarma</h3>
+      <p>Kamyon ve iş makineleri için özel ekipmanlı ağır tonajlı kurtarma hizmeti.</p>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="why-grid">
+    <div class="reveal">
+      <div class="tag">Neden Biz</div>
+      <p class="why-lead">Yolda kalanlar için <em>hız</em>, şeffaflık ve güven bir arada olmalı.</p>
+    </div>
+    <div class="why-copy reveal reveal-delay-1">
+      <p>Gece yarısı otoyolda, yağmurda veya şehir trafiğinde — senin için hazır bekleyen bir ekip fark yaratır. Biz yalnızca araç taşımıyoruz; süreci baştan sona netleştiriyoruz.</p>
+      <p>Fiyat sürprizi yok, gereksiz bekletme yok. Konumunu alıyoruz, en yakın ekibi yönlendiriyoruz, işlem bitene kadar yanında kalıyoruz.</p>
+    </div>
+  </div>
+  <div class="why-list">
+    <div class="why-item reveal">
+      <div class="n">01</div>
+      <div>
+        <h3>Sabit fiyat, peşin netlik</h3>
+        <p>Çağrı anında mesafe ve hizmet türüne göre fiyatı öğrenirsin. Yol kenarında pazarlık yok; faturalı ve şeffaf işlem.</p>
+      </div>
+    </div>
+    <div class="why-item reveal reveal-delay-1">
+      <div class="n">02</div>
+      <div>
+        <h3>Sigorta anlaşmalı ekip</h3>
+        <p>Anlaşmalı poliçelerde süreç hızlanır. Gerekli evrak yönlendirmesini ekibimiz yerinde destekler.</p>
+      </div>
+    </div>
+    <div class="why-item reveal reveal-delay-2">
+      <div class="n">03</div>
+      <div>
+        <h3>Canlı takip &amp; iletişim</h3>
+        <p>Ekibin yola çıktığını ve yaklaşık varışını anlık takip edebilirsin. Tek satır mesajla durum güncellemesi alırsın.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="coverage" id="coverage">
+  <div class="section-head reveal">
+    <div>
+      <div class="tag">Hizmet Bölgesi</div>
+      <h2>İstanbul ve Çevresinde Aktif Ağımız</h2>
+    </div>
+    <p>Ana arterler, yan yollar ve şehir dışı bağlantılarda dağıtık ekiplerle ortalama varış süresini kısa tutuyoruz.</p>
+  </div>
+  <div class="coverage-map">
+    <div class="zone reveal">
+      <span class="zone-tag">Avrupa</span>
+      <div>
+        <h3>Merkez &amp; Kuzey</h3>
+        <p>Beşiktaş, Şişli, Sarıyer, Kağıthane hatları</p>
+      </div>
+    </div>
+    <div class="zone reveal reveal-delay-1">
+      <span class="zone-tag">Avrupa</span>
+      <div>
+        <h3>Batı Koridoru</h3>
+        <p>Bakırköy, Bahçelievler, Esenyurt, Beylikdüzü</p>
+      </div>
+    </div>
+    <div class="zone reveal reveal-delay-2">
+      <span class="zone-tag">Anadolu</span>
+      <div>
+        <h3>Kadıköy Hattı</h3>
+        <p>Kadıköy, Üsküdar, Ataşehir, Maltepe</p>
+      </div>
+    </div>
+    <div class="zone reveal reveal-delay-3">
+      <span class="zone-tag">Anadolu</span>
+      <div>
+        <h3>Doğu &amp; TEM</h3>
+        <p>Pendik, Tuzla, Gebze bağlantıları</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="section-head reveal">
+    <div>
+      <div class="tag">Nasıl Çalışır</div>
+      <h2>Üç Adımda Yol Yardım</h2>
+    </div>
+    <p>Karışıklık yok: ara, konumunu paylaş, ekibin gelsin. Ortalama süreç dakikalar içinde başlar.</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="num">01</div>
+      <h4>Ara ya da Konum Gönder</h4>
+      <p>Tek tuşla konumun otomatik olarak en yakın ekibimize iletilir, telefonda uzun anlatmana gerek kalmaz.</p>
+    </div>
+    <div class="step reveal reveal-delay-1">
+      <div class="num">02</div>
+      <h4>Ekip Yola Çıkar</h4>
+      <p>Sana en yakın çekici anında yönlendirilir; canlı konum üzerinden ekibin ne zaman varacağını takip edersin.</p>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <div class="num">03</div>
+      <h4>Sorun Yerinde Çözülür</h4>
+      <p>Basit arızalar yerinde giderilir; gerekiyorsa aracın güvenle anlaşmalı servise taşınır.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tips" id="tips">
+  <div class="reveal">
+    <div class="tag">Yolda Kalırsan</div>
+    <h2 style="font-family:var(--font-display);font-weight:300;font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-0.02em;line-height:1.08;max-width:16ch;margin-bottom:18px;">Güvenliğin Önce Gelir</h2>
+    <p class="tips-intro">Panik yapmadan birkaç doğru adım, hem seni hem trafiği korur. Ekibimiz gelirken bunları uygula.</p>
+  </div>
+  <div class="tip-rows">
+    <div class="tip-row reveal">
+      <span class="label">Adım 01</span>
+      <div>
+        <h3>Güvenli şeride çek</h3>
+        <p>Mümkünse bankete veya acil şeride geç. Dörtlüleri yak, reflektörü aracın 30–50 metre gerisine koy. Geceyse yelek giy.</p>
+      </div>
+    </div>
+    <div class="tip-row reveal">
+      <span class="label">Adım 02</span>
+      <div>
+        <h3>Konumunu net paylaş</h3>
+        <p>KM taşı, çıkış numarası veya yakındaki tabelayı söyle. Telefonundaki canlı konum paylaşımı ekibin varışını ciddi kısaltır.</p>
+      </div>
+    </div>
+    <div class="tip-row reveal">
+      <span class="label">Adım 03</span>
+      <div>
+        <h3>Aracı zorlama</h3>
+        <p>Motor ısındıysa kaputu açıp bekle. Lastik veya aküde risk varsa beklet; yanlış müdahale hasarı büyütür.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="section-head reveal">
+    <div>
+      <div class="tag">Sık Sorulanlar</div>
+      <h2>Merak Ettiklerin, Net Cevaplar</h2>
+    </div>
+    <p>Fiyat, süre ve sigorta süreçleriyle ilgili en çok sorulan başlıklar.</p>
+  </div>
+  <div class="faq-list">
+    <details class="reveal">
+      <summary>Ortalama ne kadar sürede gelirsiniz?</summary>
+      <p>İstanbul genelinde ortalama 22 dakika. Yoğun saat, hava ve mesafe süreyi etkileyebilir; çağrıda tahmini varış süresini anlık paylaşıyoruz.</p>
+    </details>
+    <details class="reveal">
+      <summary>Fiyat nasıl hesaplanıyor?</summary>
+      <p>Hizmet türü (çekici, akü, lastik vb.) ve mesafeye göre sabit fiyat verilir. Onayın olmadan ek ücret uygulanmaz; işlem sonunda fatura düzenlenir.</p>
+    </details>
+    <details class="reveal">
+      <summary>Sigortam yol yardımı kapsıyor mu?</summary>
+      <p>Birçok poliçede yol yardım paketi bulunur. Poliçe bilgilerini paylaşman yeterli; anlaşmalıysa süreç hızlanır, değilse bireysel hizmetle devam ederiz.</p>
+    </details>
+    <details class="reveal">
+      <summary>Gece ve bayramda hizmet var mı?</summary>
+      <p>Evet — 7/24, hafta sonu ve resmi tatillerde ekiplerimiz aktif. Gece tarifesi peşin belirtilir, sürpriz olmaz.</p>
+    </details>
+    <details class="reveal">
+      <summary>Aracım hangi servise götürülebilir?</summary>
+      <p>Tercih ettiğin yetkili veya anlaşmalı servise taşıyoruz. Adres yoksa bulunduğun bölgedeki güvenilir seçenekleri öneriyoruz.</p>
+    </details>
+  </div>
+</section>
+
+<section class="quote-band reveal">
+  <blockquote>“Yağmurda TEM’de kaldık, 18 dakikada yanımızdaydılar. Fiyat da baştan netti.”</blockquote>
+  <cite>— Ayşe K. · Kadıköy</cite>
+</section>
+
+<section class="closing">
+  <div class="tag reveal">Şimdi Ara</div>
+  <h2 class="reveal">Yolda <em>Yalnız</em> Kalma.</h2>
+  <p class="reveal reveal-delay-1">Gece gündüz, hafta sonu fark etmez — ekiplerimiz her an hazır. Numarayı kaydet; ihtiyacın olduğunda tek tuş uzağında ol.</p>
+  <a class="cta-primary reveal reveal-delay-2" href="tel:+900000000000">0850 000 00 00 — Hemen Ara</a>
+  <p class="closing-note reveal reveal-delay-3">7/24 çağrı merkezi · İstanbul &amp; çevre</p>
+</section>
+
+<footer>
+  <span>© 2026 Yol Yardım A.Ş.</span>
+  <span>İstanbul, Türkiye</span>
+  <span>0850 000 00 00</span>
+</footer>
+
+<script>
+(function () {
+  var hero = document.getElementById('hero');
+  var video = document.getElementById('hero-video');
+  var audio = document.getElementById('site-audio');
+  var toggle = document.getElementById('sound-toggle');
+  var label = toggle.querySelector('.label');
+  var posterUrl = 'assets/poster.jpg';
+  var soundOn = false;
+
+  var MEDIA_ERR = {
+    1: 'MEDIA_ERR_ABORTED — yükleme iptal edildi',
+    2: 'MEDIA_ERR_NETWORK — ağ hatası / 404 olabilir',
+    3: 'MEDIA_ERR_DECODE — codec veya bozuk dosya',
+    4: 'MEDIA_ERR_SRC_NOT_SUPPORTED — format veya path hatası'
+  };
+
+  function showPosterFallback(reason) {
+    console.error('[hero-video] Fallback aktif:', reason);
+    hero.classList.add('video-failed');
+    hero.style.backgroundImage = 'url("' + posterUrl + '")';
+  }
+
+  function reportVideoError() {
+    var err = video.error;
+    var code = err ? err.code : null;
+    var detail = (code && MEDIA_ERR[code]) || 'bilinmeyen hata';
+    console.error('[hero-video] Yükleme hatası:', detail);
+    console.error('[hero-video] code=', code, '| currentSrc=', video.currentSrc, '| networkState=', video.networkState);
+    showPosterFallback(detail);
+  }
+
+  video.addEventListener('error', reportVideoError);
+  video.querySelectorAll('source').forEach(function (source) {
+    source.addEventListener('error', function () {
+      console.error('[hero-video] <source> yüklenemedi:', source.src);
+    });
+  });
+  video.addEventListener('loadeddata', function () {
+    console.log('[hero-video] Yüklendi:', video.currentSrc);
+  });
+  video.play().catch(function (e) {
+    console.error('[hero-video] play() başarısız:', e && e.message ? e.message : e);
+    if (video.readyState < 2) showPosterFallback('play() başarısız');
+  });
+
+  function setSoundUI(on) {
+    soundOn = on;
+    toggle.classList.toggle('is-muted', !on);
+    toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+    toggle.setAttribute('aria-label', on ? 'Sesi kapat' : 'Sesi aç');
+    label.textContent = on ? 'Ses Açık' : 'Ses Kapalı';
+  }
+
+  function enableSound() {
+    audio.volume = 0.35;
+    return audio.play().then(function () {
+      setSoundUI(true);
+      console.log('[site-audio] Oynatılıyor');
+    }).catch(function (e) {
+      console.error('[site-audio] play engellendi:', e && e.message ? e.message : e);
+      setSoundUI(false);
+      return Promise.reject(e);
+    });
+  }
+
+  function disableSound() {
+    audio.pause();
+    setSoundUI(false);
+  }
+
+  // Tarayıcı politikası: sessiz başla, hemen sesli dene; olmazsa ilk etkileşimde aç
+  audio.volume = 0.35;
+  enableSound().catch(function () {
+    var unlock = function () {
+      enableSound().finally(function () {
+        document.removeEventListener('pointerdown', unlock);
+        document.removeEventListener('keydown', unlock);
+        document.removeEventListener('touchstart', unlock);
+        document.removeEventListener('scroll', unlock);
+      });
+    };
+    document.addEventListener('pointerdown', unlock, { once: true });
+    document.addEventListener('keydown', unlock, { once: true });
+    document.addEventListener('touchstart', unlock, { once: true });
+    document.addEventListener('scroll', unlock, { once: true, passive: true });
+  });
+
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (soundOn) disableSound();
+    else enableSound();
+  });
+
+  // Scroll reveal
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+})();
+</script>
+
+</body>
+</html>
