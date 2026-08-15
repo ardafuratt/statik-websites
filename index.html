@@ -500,43 +500,47 @@
       padding:11px 14px; font-size:0.68rem;
     }
 
-    /* Mobil: video 16:9 — çekicinin tamamı masaüstü gibi görünsün */
+    /* Mobil: tam kadraj video, metinler yine videonun üstünde */
     .hero{
-      height:auto;
+      height:100svh;
       min-height:100svh;
       display:flex;
-      flex-direction:column;
-      align-items:stretch;
-      justify-content:flex-start;
-      overflow:visible;
+      align-items:flex-end;
+      overflow:hidden;
     }
     .hero-media{
-      position:relative;
-      inset:auto;
+      position:absolute;
+      inset:0;
       width:100%;
-      aspect-ratio:16 / 9;
-      flex-shrink:0;
-      background-position:center center;
+      height:100%;
+      background-size:cover;
+      background-position:center 42%;
     }
     .hero-media video{
+      width:100%;
+      height:100%;
       object-fit:contain;
-      object-position:center center;
-      background:#050506;
+      object-position:center 36%;
+      background:transparent;
+      filter:brightness(.92) saturate(1.05);
     }
     .hero::after{
-      display:none;
+      display:block;
+      background:
+        linear-gradient(180deg,
+          rgba(10,11,13,0.12) 0%,
+          rgba(10,11,13,0.08) 32%,
+          rgba(10,11,13,0.28) 54%,
+          rgba(10,11,13,0.88) 84%,
+          rgba(10,11,13,0.97) 100%);
     }
     .hero-content{
       position:relative;
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      padding:32px 6.5vw 36px;
-      padding-bottom:max(36px, calc(28px + env(safe-area-inset-bottom)));
-      background:
-        linear-gradient(180deg, #12141a 0%, var(--bg) 40%);
-      border-top:1px solid rgba(242,169,59,0.18);
+      z-index:2;
+      width:100%;
+      padding:0 6.5vw max(5vh, calc(28px + env(safe-area-inset-bottom)));
+      background:none;
+      border:0;
     }
     .eyebrow{
       font-size:0.68rem;
@@ -570,7 +574,7 @@
     }
     .scroll-cue{ display:none; }
     .sound-toggle{
-      bottom:max(88px, calc(72px + env(safe-area-inset-bottom)));
+      bottom:max(18px, env(safe-area-inset-bottom));
     }
 
     .ticker{ padding:16px 0; }
@@ -671,7 +675,11 @@
 
   @media (max-width:480px){
     .brand{ font-size:1.02rem; letter-spacing:0.03em; }
-    .hero-content{ padding-top:28px; padding-bottom:32px; }
+    .hero-content{
+      padding-top:0;
+      padding-bottom:max(4.5vh, calc(24px + env(safe-area-inset-bottom)));
+    }
+    .hero-media video{ object-position:center 34%; }
     h1{ font-size:clamp(1.75rem, 8vw, 2.2rem); }
     .hero-sub{ gap:22px; margin-top:22px; }
     .stats .item{ padding:24px 5.5vw; }
