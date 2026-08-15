@@ -94,20 +94,26 @@
     position:relative; height:100vh; min-height:640px;
     display:flex; align-items:flex-end; overflow:hidden;
     background-color:var(--bg);
-    background-image:url("assets/poster.jpg");
-    background-size:cover; background-position:center 40%;
   }
-  .hero video{
-    position:absolute; inset:0; width:100%; height:100%;
-    object-fit:cover; object-position:center 40%; z-index:0;
+  .hero-media{
+    position:absolute; inset:0; z-index:0;
+    background-color:var(--bg);
+    background-image:url("assets/poster.jpg");
+    background-size:cover; background-position:center 45%;
+  }
+  .hero-media video{
+    width:100%; height:100%;
+    object-fit:cover; object-position:center 45%;
+    display:block;
     -webkit-transform:translateZ(0);
   }
-  .hero.video-failed video{ display:none; }
+  .hero.video-failed .hero-media video{ display:none; }
   .hero::after{
     content:""; position:absolute; inset:0; z-index:1;
     background:
       linear-gradient(180deg, rgba(10,11,13,0.18) 0%, rgba(10,11,13,0.12) 38%, rgba(10,11,13,0.82) 92%),
       linear-gradient(90deg, rgba(10,11,13,0.32) 0%, transparent 45%, transparent 60%, rgba(10,11,13,0.28) 100%);
+    pointer-events:none;
   }
   .hero-content{
     position:relative; z-index:2;
@@ -494,28 +500,43 @@
       padding:11px 14px; font-size:0.68rem;
     }
 
-    /* Video üstte açılsın, metin altta nefes alsın */
+    /* Mobil: video 16:9 — çekicinin tamamı masaüstü gibi görünsün */
     .hero{
+      height:auto;
       min-height:100svh;
-      height:100svh;
-      align-items:flex-end;
-      background-position:62% 38%;
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      justify-content:flex-start;
+      overflow:visible;
     }
-    .hero video{
-      object-position:62% 38%;
+    .hero-media{
+      position:relative;
+      inset:auto;
+      width:100%;
+      aspect-ratio:16 / 9;
+      flex-shrink:0;
+      background-position:center center;
+    }
+    .hero-media video{
+      object-fit:contain;
+      object-position:center center;
+      background:#050506;
     }
     .hero::after{
-      background:
-        linear-gradient(180deg,
-          rgba(10,11,13,0.08) 0%,
-          rgba(10,11,13,0.05) 32%,
-          rgba(10,11,13,0.35) 58%,
-          rgba(10,11,13,0.88) 100%);
+      display:none;
     }
     .hero-content{
-      padding:0 6.5vw max(4.5vh, calc(22px + env(safe-area-inset-bottom)));
-      padding-top:42vh;
-      background:linear-gradient(180deg, transparent 0%, rgba(10,11,13,0.55) 28%, rgba(10,11,13,0.92) 100%);
+      position:relative;
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:32px 6.5vw 36px;
+      padding-bottom:max(36px, calc(28px + env(safe-area-inset-bottom)));
+      background:
+        linear-gradient(180deg, #12141a 0%, var(--bg) 40%);
+      border-top:1px solid rgba(242,169,59,0.18);
     }
     .eyebrow{
       font-size:0.68rem;
@@ -548,6 +569,9 @@
       margin-top:4px;
     }
     .scroll-cue{ display:none; }
+    .sound-toggle{
+      bottom:max(88px, calc(72px + env(safe-area-inset-bottom)));
+    }
 
     .ticker{ padding:16px 0; }
     .ticker-track{ gap:36px; font-size:0.72rem; }
@@ -647,7 +671,7 @@
 
   @media (max-width:480px){
     .brand{ font-size:1.02rem; letter-spacing:0.03em; }
-    .hero-content{ padding-top:38vh; }
+    .hero-content{ padding-top:28px; padding-bottom:32px; }
     h1{ font-size:clamp(1.75rem, 8vw, 2.2rem); }
     .hero-sub{ gap:22px; margin-top:22px; }
     .stats .item{ padding:24px 5.5vw; }
@@ -683,10 +707,12 @@
 </nav>
 
 <section class="hero" id="hero">
-  <video id="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/poster.jpg">
-    <source src="assets/hero.mp4" type="video/mp4">
-    <source src="assets/hero.webm" type="video/webm">
-  </video>
+  <div class="hero-media">
+    <video id="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/poster.jpg">
+      <source src="assets/hero.mp4" type="video/mp4">
+      <source src="assets/hero.webm" type="video/webm">
+    </video>
+  </div>
 
   <div class="hero-content">
     <div class="eyebrow"><span class="dot"></span> Şu An Yolda 12 Ekip</div>
@@ -962,7 +988,8 @@
   function showPosterFallback(reason) {
     console.error('[hero-video] Fallback aktif:', reason);
     hero.classList.add('video-failed');
-    hero.style.backgroundImage = 'url("' + posterUrl + '")';
+    var media = hero.querySelector('.hero-media');
+    if (media) media.style.backgroundImage = 'url("' + posterUrl + '")';
   }
 
   function reportVideoError() {
