@@ -500,7 +500,7 @@
       padding:11px 14px; font-size:0.68rem;
     }
 
-    /* Mobil: tam kadraj video, metinler yine videonun üstünde */
+    /* Masaüstü gibi: video yazının ARKASINDA, çekici kırpılmadan tam kadraj */
     .hero{
       height:100svh;
       min-height:100svh;
@@ -511,28 +511,29 @@
     .hero-media{
       position:absolute;
       inset:0;
-      width:100%;
-      height:100%;
-      background-size:cover;
-      background-position:center 42%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#0A0B0D;
+      background-image:none;
     }
     .hero-media video{
       width:100%;
-      height:100%;
+      height:auto;
+      max-width:100%;
       object-fit:contain;
-      object-position:center 36%;
+      object-position:center center;
       background:transparent;
-      filter:brightness(.92) saturate(1.05);
     }
     .hero::after{
       display:block;
       background:
         linear-gradient(180deg,
-          rgba(10,11,13,0.12) 0%,
-          rgba(10,11,13,0.08) 32%,
-          rgba(10,11,13,0.28) 54%,
-          rgba(10,11,13,0.88) 84%,
-          rgba(10,11,13,0.97) 100%);
+          rgba(10,11,13,0.22) 0%,
+          rgba(10,11,13,0.08) 28%,
+          rgba(10,11,13,0.18) 52%,
+          rgba(10,11,13,0.72) 82%,
+          rgba(10,11,13,0.92) 100%);
     }
     .hero-content{
       position:relative;
@@ -679,7 +680,7 @@
       padding-top:0;
       padding-bottom:max(4.5vh, calc(24px + env(safe-area-inset-bottom)));
     }
-    .hero-media video{ object-position:center 34%; }
+    .hero-media{ align-items:center; }
     h1{ font-size:clamp(1.75rem, 8vw, 2.2rem); }
     .hero-sub{ gap:22px; margin-top:22px; }
     .stats .item{ padding:24px 5.5vw; }
