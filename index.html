@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Yol Yardım A.Ş. — 7/24 Çekici &amp; Oto Kurtarma</title>
+<title>Aslan Oto Kurtarma — Bingöl 7/24 Çekici &amp; Oto Kurtarma</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -448,6 +448,89 @@
     text-transform:uppercase; font-weight:500;
   }
 
+  /* ---- REVIEWS ---- */
+  .reviews{
+    padding:14vh 6vw; border-top:1px solid var(--line);
+    background:
+      radial-gradient(ellipse 70% 50% at 0% 80%, rgba(242,169,59,0.08), transparent 55%),
+      var(--bg);
+  }
+  .review-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:16px;
+  }
+  .review-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:28px 26px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .review-stars{
+    color:var(--amber); letter-spacing:2px; font-size:0.95rem;
+  }
+  .review-card p{
+    color:var(--text); font-size:1rem; line-height:1.7; font-weight:350;
+    font-family:var(--font-display); font-style:italic;
+  }
+  .review-meta{
+    margin-top:auto; padding-top:8px;
+    display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    color:var(--text-dim); font-size:0.82rem;
+  }
+  .review-meta strong{ color:var(--text); font-weight:500; }
+
+  /* ---- CONTACT ---- */
+  .contact{
+    padding:14vh 6vw; border-top:1px solid var(--line);
+    background:linear-gradient(180deg, #101218, #0A0B0D);
+  }
+  .contact-grid{
+    display:grid; grid-template-columns:1fr 1.15fr; gap:40px; align-items:stretch;
+  }
+  .contact-card{
+    display:flex; flex-direction:column; gap:22px;
+  }
+  .info-row{
+    padding:18px 0; border-bottom:1px solid var(--line);
+  }
+  .info-row .k{
+    font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--amber); font-weight:500; margin-bottom:8px;
+  }
+  .info-row .v{
+    font-size:1.05rem; line-height:1.55;
+  }
+  .info-row a{ color:var(--text); text-decoration:none; }
+  .info-row a:hover{ color:var(--amber); }
+  .contact-actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:8px; }
+  .cta-ghost{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:14px 22px; border-radius:999px;
+    border:1px solid var(--line); color:var(--text); text-decoration:none;
+    font-weight:500; font-size:0.88rem;
+  }
+  .cta-ghost:hover{ border-color:var(--amber); }
+  .map-wrap{
+    min-height:360px; border:1px solid var(--line); overflow:hidden; background:var(--panel);
+  }
+  .map-wrap iframe{ width:100%; height:100%; min-height:360px; border:0; filter:grayscale(.35) contrast(1.05); }
+
+  .city-chips{
+    display:flex; flex-wrap:wrap; gap:10px; margin-top:36px;
+  }
+  .city-chips span{
+    padding:10px 16px; border:1px solid var(--line); border-radius:999px;
+    font-size:0.84rem; color:var(--text-dim);
+  }
+
+  .wa-float{
+    position:fixed; left:6vw; bottom:28px; z-index:30;
+    display:inline-flex; align-items:center; gap:10px;
+    padding:12px 18px; border-radius:999px;
+    background:#25D366; color:#07210f; text-decoration:none;
+    font-weight:600; font-size:0.82rem; letter-spacing:0.02em;
+    box-shadow:0 10px 24px rgba(37,211,102,0.25);
+  }
+
   /* ---- CLOSING ---- */
   .closing{
     padding:16vh 6vw; text-align:center; border-top:1px solid var(--line);
@@ -478,6 +561,8 @@
   @media (max-width:980px){
     .why-grid{ grid-template-columns:1fr; gap:40px; }
     .coverage-map{ grid-template-columns:repeat(2,1fr); }
+    .review-grid{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:1fr; gap:28px; }
     .tip-row{ grid-template-columns:1fr; gap:14px; }
     .step{ grid-template-columns:70px 1fr; }
     .step p{ grid-column:2; }
@@ -496,8 +581,12 @@
       display:inline-flex; align-items:center;
     }
     .sound-toggle{
-      right:5vw; bottom:max(18px, env(safe-area-inset-bottom));
+      right:5vw; bottom:max(78px, calc(72px + env(safe-area-inset-bottom)));
       padding:11px 14px; font-size:0.68rem;
+    }
+    .wa-float{
+      left:5vw; bottom:max(18px, env(safe-area-inset-bottom));
+      padding:11px 14px; font-size:0.78rem;
     }
 
     /* İlk ekranı tamamen kapla — video arka plan, yazı üstte */
@@ -573,9 +662,6 @@
       margin-top:4px;
     }
     .scroll-cue{ display:none; }
-    .sound-toggle{
-      bottom:max(18px, env(safe-area-inset-bottom));
-    }
 
     .ticker{ padding:16px 0; }
     .ticker-track{ gap:36px; font-size:0.72rem; }
@@ -589,7 +675,7 @@
     .stats .num{ font-size:1.9rem; }
     .stats .label{ font-size:0.78rem; margin-top:10px; }
 
-    .services, .process, .why, .coverage, .tips, .faq{
+    .services, .process, .why, .coverage, .tips, .faq, .reviews, .contact{
       padding:11vh 6.5vw;
     }
     .section-head{
@@ -706,11 +792,11 @@
 </button>
 
 <nav>
-  <div class="brand">YOL<em>YARDIM</em></div>
+  <div class="brand">ASLAN<em>OTO</em></div>
   <div class="nav-right">
-    <span>7/24 Hizmet</span>
-    <span>İstanbul &amp; Çevresi</span>
-    <a class="nav-cta" href="tel:+900000000000">0850 000 00 00</a>
+    <span>7/24 Açık</span>
+    <span>Bingöl &amp; Çevre</span>
+    <a class="nav-cta" href="tel:+905339131221">0533 913 12 21</a>
   </div>
 </nav>
 
@@ -723,11 +809,11 @@
   </div>
 
   <div class="hero-content">
-    <div class="eyebrow"><span class="dot"></span> Şu An Yolda 12 Ekip</div>
-    <h1>Yolda Kaldığın<br>An, <em>Biz</em> Yoldayız.</h1>
+    <div class="eyebrow"><span class="dot"></span> Bingöl · 7/24 Oto Kurtarma</div>
+    <h1>Yolda Kaldığın<br>An, <em>Aslan</em> Yoldadır.</h1>
     <div class="hero-sub">
-      <p>İstanbul genelinde ortalama 22 dakikada yerinde müdahale. Sigorta anlaşmalı, sabit fiyat garantili, sertifikalı ekip.</p>
-      <a class="cta-primary" href="#services">Hizmetleri Gör →</a>
+      <p>Bingöl merkez, ilçeler ve çevre illerde çekici &amp; oto kurtarma. Uygun fiyat, hızlı müdahale, güler yüzlü ekip.</p>
+      <a class="cta-primary" href="tel:+905339131221">Hemen Ara →</a>
     </div>
   </div>
 
@@ -736,16 +822,16 @@
 
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>7/24 Aktif</span> · İstanbul Genel · Ortalama 22 dk · Sigorta Anlaşmalı · Sabit Fiyat ·
-    <span>7/24 Aktif</span> · İstanbul Genel · Ortalama 22 dk · Sigorta Anlaşmalı · Sabit Fiyat ·
+    <span>7/24 Açık</span> · Bingöl Merkez · İlçeler · Elazığ · Muş · Erzurum · Tunceli · Diyarbakır · Uygun Fiyat ·
+    <span>7/24 Açık</span> · Bingöl Merkez · İlçeler · Elazığ · Muş · Erzurum · Tunceli · Diyarbakır · Uygun Fiyat ·
   </div>
 </div>
 
 <div class="stats">
-  <div class="item reveal"><div class="num">22 dk</div><div class="label">Ortalama varış süresi</div></div>
-  <div class="item reveal reveal-delay-1"><div class="num">7/24</div><div class="label">Kesintisiz hizmet</div></div>
-  <div class="item reveal reveal-delay-2"><div class="num">40+</div><div class="label">Aktif çekici ekibi</div></div>
-  <div class="item reveal reveal-delay-3"><div class="num">98%</div><div class="label">Memnuniyet oranı</div></div>
+  <div class="item reveal"><div class="num">7/24</div><div class="label">Kesintisiz açık</div></div>
+  <div class="item reveal reveal-delay-1"><div class="num">Bingöl</div><div class="label">Sanayi Sitesi merkez</div></div>
+  <div class="item reveal reveal-delay-2"><div class="num">8 ilçe</div><div class="label">Bingöl ve çevresi</div></div>
+  <div class="item reveal reveal-delay-3"><div class="num">5★</div><div class="label">Google yorumları</div></div>
 </div>
 
 <section class="services" id="services">
@@ -754,7 +840,7 @@
       <div class="tag">Hizmetlerimiz</div>
       <h2>Aracın Neredeyse, Çözüm Oradan Başlar</h2>
     </div>
-    <p>Basit lastik değişiminden ağır vasıta taşımacılığına kadar tek çağrıyla tüm yol yardım ihtiyaçların karşılanır.</p>
+    <p>Bingöl ve çevre illerde lastik, akü, çekici ve kurtarma — tek numaradan 7/24 ulaş.</p>
   </div>
 
   <div class="service-grid">
@@ -795,33 +881,33 @@
   <div class="why-grid">
     <div class="reveal">
       <div class="tag">Neden Biz</div>
-      <p class="why-lead">Yolda kalanlar için <em>hız</em>, şeffaflık ve güven bir arada olmalı.</p>
+      <p class="why-lead">Bingöl’de yolda kalan için <em>hız</em> ve dürüst fiyat bir arada olmalı.</p>
     </div>
     <div class="why-copy reveal reveal-delay-1">
-      <p>Gece yarısı otoyolda, yağmurda veya şehir trafiğinde — senin için hazır bekleyen bir ekip fark yaratır. Biz yalnızca araç taşımıyoruz; süreci baştan sona netleştiriyoruz.</p>
-      <p>Fiyat sürprizi yok, gereksiz bekletme yok. Konumunu alıyoruz, en yakın ekibi yönlendiriyoruz, işlem bitene kadar yanında kalıyoruz.</p>
+      <p>Gece yarısı, kar, yağmur veya dağ yolu fark etmez. Aslan Oto Kurtarma, Sanayi Sitesi’ndeki merkezinden Bingöl ve çevreye 7/24 çıkıyor.</p>
+      <p>Müşterilerimizin de yazdığı gibi: iş ciddi, fiyat uygun, ilgi gerçek. Ara, konumunu söyle, ekip yola çıksın.</p>
     </div>
   </div>
   <div class="why-list">
     <div class="why-item reveal">
       <div class="n">01</div>
       <div>
-        <h3>Sabit fiyat, peşin netlik</h3>
-        <p>Çağrı anında mesafe ve hizmet türüne göre fiyatı öğrenirsin. Yol kenarında pazarlık yok; faturalı ve şeffaf işlem.</p>
+        <h3>Uygun ve net fiyat</h3>
+        <p>Çağrıda mesafe ve işi konuşuruz. Yol kenarında pazarlık yok; iş bitince hesabın net olur.</p>
       </div>
     </div>
     <div class="why-item reveal reveal-delay-1">
       <div class="n">02</div>
       <div>
-        <h3>Sigorta anlaşmalı ekip</h3>
-        <p>Anlaşmalı poliçelerde süreç hızlanır. Gerekli evrak yönlendirmesini ekibimiz yerinde destekler.</p>
+        <h3>Yerel, hızlı ekip</h3>
+        <p>Merkezimiz Bingöl Sanayi Sitesi’nde. İlçe ve çevre illere gece gündüz çıkıyoruz.</p>
       </div>
     </div>
     <div class="why-item reveal reveal-delay-2">
       <div class="n">03</div>
       <div>
-        <h3>Canlı takip &amp; iletişim</h3>
-        <p>Ekibin yola çıktığını ve yaklaşık varışını anlık takip edebilirsin. Tek satır mesajla durum güncellemesi alırsın.</p>
+        <h3>İlgi ve alaka</h3>
+        <p>Yorumlarda da geçen şey bu: işini ciddi yapan, dert çeken bir ekip. Aracın ve sen güvendesin.</p>
       </div>
     </div>
   </div>
@@ -831,39 +917,55 @@
   <div class="section-head reveal">
     <div>
       <div class="tag">Hizmet Bölgesi</div>
-      <h2>İstanbul ve Çevresinde Aktif Ağımız</h2>
+      <h2>Bingöl, İlçeler ve Çevre İller</h2>
     </div>
-    <p>Ana arterler, yan yollar ve şehir dışı bağlantılarda dağıtık ekiplerle ortalama varış süresini kısa tutuyoruz.</p>
+    <p>Sanayi Sitesi merkezinden çıkıyoruz. Dağ yolu, şehir içi, ilçe bağlantısı — 7/24 çekici ve kurtarma.</p>
   </div>
   <div class="coverage-map">
     <div class="zone reveal">
-      <span class="zone-tag">Avrupa</span>
+      <span class="zone-tag">Merkez</span>
       <div>
-        <h3>Merkez &amp; Kuzey</h3>
-        <p>Beşiktaş, Şişli, Sarıyer, Kağıthane hatları</p>
+        <h3>Bingöl Merkez</h3>
+        <p>Simani, Sanayi Sitesi ve şehir içi</p>
       </div>
     </div>
     <div class="zone reveal reveal-delay-1">
-      <span class="zone-tag">Avrupa</span>
+      <span class="zone-tag">İlçeler</span>
       <div>
-        <h3>Batı Koridoru</h3>
-        <p>Bakırköy, Bahçelievler, Esenyurt, Beylikdüzü</p>
+        <h3>Genç &amp; Solhan</h3>
+        <p>Genç, Solhan ve bağlantı yolları</p>
       </div>
     </div>
     <div class="zone reveal reveal-delay-2">
-      <span class="zone-tag">Anadolu</span>
+      <span class="zone-tag">İlçeler</span>
       <div>
-        <h3>Kadıköy Hattı</h3>
-        <p>Kadıköy, Üsküdar, Ataşehir, Maltepe</p>
+        <h3>Karlıova &amp; Adaklı</h3>
+        <p>Karlıova, Adaklı, Kiğı hattı</p>
       </div>
     </div>
     <div class="zone reveal reveal-delay-3">
-      <span class="zone-tag">Anadolu</span>
+      <span class="zone-tag">İlçeler</span>
       <div>
-        <h3>Doğu &amp; TEM</h3>
-        <p>Pendik, Tuzla, Gebze bağlantıları</p>
+        <h3>Yayladere &amp; Yedisu</h3>
+        <p>Yayladere, Yedisu ve köy yolları</p>
       </div>
     </div>
+  </div>
+  <div class="city-chips reveal">
+    <span>Bingöl Merkez</span>
+    <span>Adaklı</span>
+    <span>Genç</span>
+    <span>Karlıova</span>
+    <span>Kiğı</span>
+    <span>Solhan</span>
+    <span>Yayladere</span>
+    <span>Yedisu</span>
+    <span>Elazığ</span>
+    <span>Muş</span>
+    <span>Erzurum</span>
+    <span>Tunceli</span>
+    <span>Diyarbakır</span>
+    <span>Erzincan</span>
   </div>
 </section>
 
@@ -871,25 +973,25 @@
   <div class="section-head reveal">
     <div>
       <div class="tag">Nasıl Çalışır</div>
-      <h2>Üç Adımda Yol Yardım</h2>
+      <h2>Üç Adımda Kurtarma</h2>
     </div>
-    <p>Karışıklık yok: ara, konumunu paylaş, ekibin gelsin. Ortalama süreç dakikalar içinde başlar.</p>
+    <p>Karışıklık yok: ara, konumunu söyle, ekip yola çıksın. Bingöl ve çevrede 7/24.</p>
   </div>
   <div class="steps">
     <div class="step reveal">
       <div class="num">01</div>
       <h4>Ara ya da Konum Gönder</h4>
-      <p>Tek tuşla konumun otomatik olarak en yakın ekibimize iletilir, telefonda uzun anlatmana gerek kalmaz.</p>
+      <p>0533 913 12 21’i ara veya WhatsApp’tan yaz. Konumunu paylaşman yeterli.</p>
     </div>
     <div class="step reveal reveal-delay-1">
       <div class="num">02</div>
       <h4>Ekip Yola Çıkar</h4>
-      <p>Sana en yakın çekici anında yönlendirilir; canlı konum üzerinden ekibin ne zaman varacağını takip edersin.</p>
+      <p>Bingöl Sanayi Sitesi’ndeki ekip yola çıkar. Mesafe ve işi baştan konuşuruz.</p>
     </div>
     <div class="step reveal reveal-delay-2">
       <div class="num">03</div>
       <h4>Sorun Yerinde Çözülür</h4>
-      <p>Basit arızalar yerinde giderilir; gerekiyorsa aracın güvenle anlaşmalı servise taşınır.</p>
+      <p>Lastik, akü, çekici veya kurtarma yerinde hallolur. Gerekiyorsa aracın servise taşınır.</p>
     </div>
   </div>
 </section>
@@ -931,50 +1033,122 @@
       <div class="tag">Sık Sorulanlar</div>
       <h2>Merak Ettiklerin, Net Cevaplar</h2>
     </div>
-    <p>Fiyat, süre ve sigorta süreçleriyle ilgili en çok sorulan başlıklar.</p>
+    <p>Süre, fiyat ve Bingöl çevresi hizmetiyle ilgili en çok sorulanlar.</p>
   </div>
   <div class="faq-list">
     <details class="reveal">
-      <summary>Ortalama ne kadar sürede gelirsiniz?</summary>
-      <p>İstanbul genelinde ortalama 22 dakika. Yoğun saat, hava ve mesafe süreyi etkileyebilir; çağrıda tahmini varış süresini anlık paylaşıyoruz.</p>
+      <summary>Hangi bölgelere gidiyorsunuz?</summary>
+      <p>Bingöl merkez ve tüm ilçeler (Adaklı, Genç, Karlıova, Kiğı, Solhan, Yayladere, Yedisu) ile Elazığ, Muş, Erzurum, Tunceli, Diyarbakır ve Erzincan hattına çıkıyoruz.</p>
     </details>
     <details class="reveal">
-      <summary>Fiyat nasıl hesaplanıyor?</summary>
-      <p>Hizmet türü (çekici, akü, lastik vb.) ve mesafeye göre sabit fiyat verilir. Onayın olmadan ek ücret uygulanmaz; işlem sonunda fatura düzenlenir.</p>
+      <summary>Fiyat nasıl belli oluyor?</summary>
+      <p>Hizmet türü ve mesafeye göre çağrıda konuşulur. Onaysız ek ücret yok. Müşteri yorumlarında da geçen şey: uygun fiyat, ciddi iş.</p>
     </details>
     <details class="reveal">
-      <summary>Sigortam yol yardımı kapsıyor mu?</summary>
-      <p>Birçok poliçede yol yardım paketi bulunur. Poliçe bilgilerini paylaşman yeterli; anlaşmalıysa süreç hızlanır, değilse bireysel hizmetle devam ederiz.</p>
+      <summary>Gece ve bayramda açık mısınız?</summary>
+      <p>Evet — 7/24 açığız. Hafta sonu ve resmi tatil fark etmez. Numara: 0533 913 12 21.</p>
     </details>
     <details class="reveal">
-      <summary>Gece ve bayramda hizmet var mı?</summary>
-      <p>Evet — 7/24, hafta sonu ve resmi tatillerde ekiplerimiz aktif. Gece tarifesi peşin belirtilir, sürpriz olmaz.</p>
+      <summary>Adresiniz neresi?</summary>
+      <p>Simani, Sanayi Sitesi, 12000 Merkez/Bingöl. Google Plus Code: WG4P+6V Bingöl.</p>
     </details>
     <details class="reveal">
       <summary>Aracım hangi servise götürülebilir?</summary>
-      <p>Tercih ettiğin yetkili veya anlaşmalı servise taşıyoruz. Adres yoksa bulunduğun bölgedeki güvenilir seçenekleri öneriyoruz.</p>
+      <p>İstediğin servise taşırız. Adres yoksa Bingöl’deki güvenilir seçenekleri söyleriz.</p>
     </details>
   </div>
 </section>
 
+<section class="reviews" id="reviews">
+  <div class="section-head reveal">
+    <div>
+      <div class="tag">Google Yorumları</div>
+      <h2>Bizi Yolda Kalanlar Anlatıyor</h2>
+    </div>
+    <p>Gerçek müşteri yorumları — olduğu gibi, isimleriyle.</p>
+  </div>
+  <div class="review-grid">
+    <article class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p>“Hem fiyatları uygun hem de hizmetleri gerçekten çok iyiydi. Güler yüzlü ve hızlı şekilde yardımcı oldular, çok memnun kaldım. Kesinlikle tavsiye ederim.”</p>
+      <div class="review-meta"><strong>Rojda Tunç</strong><span>2 ay önce · Google</span></div>
+    </article>
+    <article class="review-card reveal reveal-delay-1">
+      <div class="review-stars">★★★★★</div>
+      <p>“Gördüğüm ilgi ve alaka takdire şayan, işlerini hem ciddi hem de uygun fiyata yapıyorlar, ben aldığım hizmetten memnun kaldım. Keşke herkes böyle özveriyle işini yapsa.”</p>
+      <div class="review-meta"><strong>Mehmet Burulday</strong><span>1 ay önce · Google</span></div>
+    </article>
+    <article class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p>“Şahsen çok memnun kaldım adamlar dert bile çekiyor :)”</p>
+      <div class="review-meta"><strong>Hakan Kina</strong><span>2 ay önce · Google</span></div>
+    </article>
+    <article class="review-card reveal reveal-delay-1">
+      <div class="review-stars">★★★★★</div>
+      <p>“Adamlar o kadar iyi ki araba çekmeyi bırakmış dert bile çekiyor.”</p>
+      <div class="review-meta"><strong>Sait Yusuf Sari</strong><span>2 ay önce · Google</span></div>
+    </article>
+  </div>
+</section>
+
 <section class="quote-band reveal">
-  <blockquote>“Yağmurda TEM’de kaldık, 18 dakikada yanımızdaydılar. Fiyat da baştan netti.”</blockquote>
-  <cite>— Ayşe K. · Kadıköy</cite>
+  <blockquote>“Adamlar dert bile çekiyor.”</blockquote>
+  <cite>— Hakan Kina · Google</cite>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-head reveal">
+    <div>
+      <div class="tag">İletişim</div>
+      <h2>Bizi Ara, Konumunu Söyle</h2>
+    </div>
+    <p>Sanayi Sitesi’ndeyiz. Haritadan Plus Code ile de bulabilirsin.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card reveal">
+      <div class="info-row">
+        <div class="k">Telefon</div>
+        <div class="v"><a href="tel:+905339131221">0533 913 12 21</a></div>
+      </div>
+      <div class="info-row">
+        <div class="k">Adres</div>
+        <div class="v">Simani, Sanayi Sitesi<br>12000 Merkez / Bingöl</div>
+      </div>
+      <div class="info-row">
+        <div class="k">Çalışma saati</div>
+        <div class="v">7/24 açık — gece, bayram, kar</div>
+      </div>
+      <div class="info-row">
+        <div class="k">Google Plus Code</div>
+        <div class="v"><a href="https://maps.google.com/?q=WG4P%2B6V+Bing%C3%B6l" target="_blank" rel="noopener">WG4P+6V Bingöl</a></div>
+      </div>
+      <div class="contact-actions">
+        <a class="cta-primary" href="tel:+905339131221">Ara</a>
+        <a class="cta-ghost" href="https://wa.me/905339131221" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="cta-ghost" href="https://maps.google.com/?q=WG4P%2B6V+Bing%C3%B6l" target="_blank" rel="noopener">Yol Tarifi</a>
+      </div>
+    </div>
+    <div class="map-wrap reveal reveal-delay-1">
+      <iframe title="Aslan Oto Kurtarma Bingöl haritası" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=WG4P%2B6V%20Bingol&z=16&output=embed"></iframe>
+    </div>
+  </div>
 </section>
 
 <section class="closing">
   <div class="tag reveal">Şimdi Ara</div>
   <h2 class="reveal">Yolda <em>Yalnız</em> Kalma.</h2>
-  <p class="reveal reveal-delay-1">Gece gündüz, hafta sonu fark etmez — ekiplerimiz her an hazır. Numarayı kaydet; ihtiyacın olduğunda tek tuş uzağında ol.</p>
-  <a class="cta-primary reveal reveal-delay-2" href="tel:+900000000000">0850 000 00 00 — Hemen Ara</a>
-  <p class="closing-note reveal reveal-delay-3">7/24 çağrı merkezi · İstanbul &amp; çevre</p>
+  <p class="reveal reveal-delay-1">Bingöl ve çevrede 7/24 çekici. Numarayı kaydet; ihtiyacın olduğunda tek tuş uzağında.</p>
+  <a class="cta-primary reveal reveal-delay-2" href="tel:+905339131221">0533 913 12 21 — Hemen Ara</a>
+  <p class="closing-note reveal reveal-delay-3">Aslan Oto Kurtarma · Sanayi Sitesi, Bingöl</p>
 </section>
 
 <footer>
-  <span>© 2026 Yol Yardım A.Ş.</span>
-  <span>İstanbul, Türkiye</span>
-  <span>0850 000 00 00</span>
+  <span>© 2026 Aslan Oto Kurtarma</span>
+  <span>Simani, Sanayi Sitesi, Bingöl</span>
+  <span>0533 913 12 21</span>
 </footer>
+
+<a class="wa-float" href="https://wa.me/905339131221" target="_blank" rel="noopener">WhatsApp</a>
 
 <script>
 (function () {
